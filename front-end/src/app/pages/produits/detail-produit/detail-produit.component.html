@@ -1,0 +1,225 @@
+<!-- src/app/product-detail/product-detail.component.html -->
+<div class="product-detail-page" *ngIf="produit">
+  <!-- Breadcrumb (Navigation) -->
+  <section class="breadcrumb-section">
+    <div class="container">
+      <a routerLink="/produits">Produits</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>{{ produit.nom }}</span>
+    </div>
+  </section>
+
+  <!-- Main Product Detail Section -->
+  <section class="product-detail-main">
+    <div class="container product-detail-container">
+      <!-- Product Image Gallery -->
+      <div class="product-image-gallery">
+        <div class="main-image">
+          <img
+            [src]="produit.images && produit.images.length > 0
+                    ? 'http://127.0.0.1:8000/storage/' + produit.images[currentImageIndex].image
+                    : (produit.image ? 'http://127.0.0.1:8000/storage/' + produit.image : 'assets/images/no-image.jpg')"
+            [alt]="produit.nom"
+            (error)="onImageError($event)"
+          />
+        </div>
+        <div class="thumbnail-images" *ngIf="produit.images && produit.images.length > 0; else fallbackThumbnails">
+          <img
+            *ngFor="let img of produit.images; let idx = index"
+            [src]="'http://127.0.0.1:8000/storage/' + img.image"
+            [alt]="produit.nom + ' image ' + (idx + 1)"
+            [class.active]="idx === currentImageIndex"
+            (click)="setActiveImage(idx)"
+            (error)="onImageError($event)"
+          />
+        </div>
+
+        <ng-template #fallbackThumbnails>
+          <div class="thumbnail-images">
+            <img
+              [src]="produit.image ? 'http://127.0.0.1:8000/storage/' + produit.image : 'assets/images/no-image.jpg'"
+              alt="Thumbnail 1"
+              class="active"
+              (error)="onImageError($event)"
+            />
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Product Information -->
+      <div class="product-info-section">
+        <p class="product-category">Catégorie: {{ produit.type }}</p>
+        <h1 class="product-title">{{ produit.nom }}</h1>
+
+        <div class="product-rating">
+          <span class="stars">★★★★★</span>
+          <span class="review-count">(120 avis)</span>
+        </div>
+
+        <p class="product-price">
+          <span class="current-price">{{ formatPrice(produit.prix) }}</span>
+          <!-- Exemple de prix barré si le prix est > 100 (ajustez la logique si besoin) -->
+          <span *ngIf="produit.prix > 100" class="old-price">{{ formatPrice(produit.prix + 5000) }}</span>
+        </p>
+
+        <div class="stock-status" [class.in-stock]="produit.quantite > 0" [class.out-of-stock]="produit.quantite <= 0">
+          <i class="fas" [class.fa-check-circle]="produit.quantite > 0" [class.fa-times-circle]="produit.quantite <= 0"></i>
+          {{ produit.quantite > 0 ? 'En stock' : 'Rupture de stock' }}
+        </div>
+
+        <p class="product-description">
+          {{ produit.description }}
+        </p>
+
+        <div class="product-options">
+          <div class="quantity-selector">
+            <label for="quantity">Quantité:</label>
+            <div class="quantity-controls">
+              <button class="quantity-btn" (click)="decrementQuantity()">-</button>
+              <input
+                type="number"
+                id="quantity"
+                [(ngModel)]="quantity"
+                min="1"
+                [max]="produit.quantite"
+                class="quantity-input"
+              />
+              <button class="quantity-btn" (click)="incrementQuantity()">+</button>
+            </div>
+          </div>
+          <!-- Ajoutez d'autres options comme la couleur, la taille si applicable à votre modèle Produit -->
+        </div>
+
+        <div class="product-actions-detail">
+          <button class="btn-add-to-cart" (click)="addToCart()" [disabled]="isOutOfStock(produit.quantite)">
+            <i class="fas fa-shopping-cart"></i> Ajouter au panier
+          </button>
+          <button class="btn-buy-now" (click)="buyNow()" [disabled]="isOutOfStock(produit.quantite)">Acheter maintenant</button>
+        </div>
+
+        <div class="product-meta">
+          <span>SKU: ALM-{{ produit.id }}</span>
+          <span>Type: {{ produit.type }}</span>
+          <span>Unité: {{ produit.unite }}</span>
+          <!-- Ajoutez d'autres métadonnées si disponibles dans votre modèle Produit -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Description & Details (Onglets) -->
+  <section class="product-extra-details">
+    <div class="container">
+      <h2>Détails du Produit</h2>
+      <div class="tabs">
+        <button class="tab-button" [class.active]="activeTab === 'description'" (click)="setActiveTab('description')">Description</button>
+        <button class="tab-button" [class.active]="activeTab === 'specifications'" (click)="setActiveTab('specifications')">Spécifications</button>
+        <button class="tab-button" [class.active]="activeTab === 'reviews'" (click)="setActiveTab('reviews')">Avis (120)</button>
+      </div>
+
+      <div id="description" class="tab-content" [class.active]="activeTab === 'description'">
+        <h3>Description Détaillée</h3>
+        <p>
+          Ce tissu Wax africain est un véritable chef-d'œuvre, alliant
+          tradition et modernité. Fabriqué avec du coton de première qualité,
+          il offre une sensation douce au toucher et une excellente tenue dans
+          le temps. Les motifs géométriques et floraux sont imprimés avec une
+          précision remarquable, utilisant des techniques ancestrales pour
+          garantir des couleurs qui ne s'estompent pas. Idéal pour la
+          confection de robes, jupes, chemises, ou même pour des projets de
+          décoration intérieure comme des coussins ou des tentures murales.
+          Chaque pièce raconte une histoire et apporte une touche d'élégance
+          africaine à votre style.
+        </p>
+        <ul>
+          <li>Matière: 100% Coton de qualité supérieure</li>
+          <li>Motifs: Imprimés Wax traditionnels et contemporains</li>
+          <li>Utilisation: Vêtements, accessoires, décoration</li>
+          <li>Entretien: Lavage en machine à froid, séchage à l'air libre</li>
+        </ul>
+      </div>
+
+      <div id="specifications" class="tab-content" [class.active]="activeTab === 'specifications'">
+        <h3>Spécifications Techniques</h3>
+        <p>
+          Largeur: 1,20 mètre <br />
+          Longueur disponible: Par mètre (min. 1m) <br />
+          Poids: Environ 150g/m² <br />
+          Technique d'impression: Cire résistante (Wax Print) <br />
+          Origine: Afrique de l'Ouest
+        </p>
+      </div>
+
+      <div id="reviews" class="tab-content" [class.active]="activeTab === 'reviews'">
+        <h3>Avis des Clients</h3>
+        <div class="review-list">
+          <div class="single-review">
+            <div class="review-header">
+              <span class="stars">★★★★★</span>
+              <span class="review-author">Par Aminata L.</span>
+              <span class="review-date">le 15 juillet 2025</span>
+            </div>
+            <p class="review-text">
+              "Absolument magnifique ! Les couleurs sont encore plus belles en
+              vrai. J'ai confectionné une robe sublime avec ce tissu."
+            </p>
+          </div>
+          <div class="single-review">
+            <div class="review-header">
+              <span class="stars">★★★★☆</span>
+              <span class="review-author">Par Omar K.</span>
+              <span class="review-date">le 10 juillet 2025</span>
+            </div>
+            <p class="review-text">
+              "Très bonne qualité, facile à travailler. Un peu cher mais ça en
+              vaut la peine."
+            </p>
+          </div>
+        </div>
+        <button class="btn-primary">Laisser un avis</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products Section (vide pour l'instant, à remplir avec la logique backend) -->
+  <section class="related-products-section">
+    <div class="container">
+      <h2>Produits Similaires</h2>
+      <p class="section-subtitle">Découvrez d'autres tissus qui pourraient vous plaire.</p>
+      <div class="products-grid">
+        <!-- Cette section sera remplie dynamiquement avec des produits similaires
+             une fois que vous aurez implémenté la logique backend et frontend pour cela.
+             Pour l'instant, elle est vide ou affiche des placeholders si vous le souhaitez. -->
+        <div *ngIf="relatedProducts.length === 0" class="empty-state-related">
+          <p>Aucun produit similaire trouvé pour l'instant.</p>
+        </div>
+        <div *ngFor="let prod of relatedProducts" class="product-card">
+          <div class="product-image">
+            <img
+              [src]="prod.image ? prod.image : 'assets/images/no-image.jpg'"
+              [alt]="prod.nom"
+              (error)="onImageError($event)"
+            />
+          </div>
+          <div class="product-info">
+            <h3>{{ prod.nom }}</h3>
+            <p class="product-type">{{ prod.type }}</p>
+            <div class="price-container">
+              <span class="current-price">{{ formatPrice(prod.prix) }}</span>
+            </div>
+            <div class="product-actions">
+              <button class="details-btn" (click)="prod.id && goToProductDetail(prod.id)">Détails</button>
+              <button class="add-to-cart-btn" (click)="addToCart()">Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- État de chargement ou produit introuvable -->
+<div *ngIf="!produit" class="loading-state">
+  <p>Chargement du produit ou produit introuvable...</p>
+  <!-- Vous pouvez ajouter un spinner ici si vous le souhaitez -->
+</div>

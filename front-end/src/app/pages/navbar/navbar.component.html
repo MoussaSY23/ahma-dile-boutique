@@ -1,0 +1,163 @@
+<nav class="site-nav">
+  <!-- BARRE PRINCIPALE DESKTOP / TABLETTE -->
+  <div class="nav-top">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="nav-top-inner">
+        <!-- Logo + menu mobile -->
+        <div class="flex items-center gap-3">
+          <button class="mobile-toggle lg:hidden" (click)="toggleMobileMenu()" aria-label="Toggle menu">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+          <!-- Logo Ahma-Dile -->
+          <a routerLink="/home" class="brand flex items-center gap-1">
+            <span class="brand-main">AHMA</span>
+            <span class="brand-dot">•</span>
+            <span class="brand-sub">DILE</span>
+          </a>
+        </div>
+
+        <!-- Barre de recherche centrale (desktop) -->
+        <form
+          class="nav-search hidden lg:flex"
+          *ngIf="isLoggedIn"
+          (submit)="$event.preventDefault(); onSearchSubmit();"
+        >
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            [(ngModel)]="navSearchTerm"
+            name="navSearch"
+            placeholder="Cherchez un produit, une marque ou une catégorie"
+          />
+          <button type="submit" aria-label="Rechercher" class="search-btn">
+            Rechercher
+          </button>
+        </form>
+
+        <!-- Zone droite: Bonjour, compte / Aide / Panier -->
+        <div class="nav-actions hidden lg:flex" *ngIf="isLoggedIn">
+          <!-- Bonjour, Nom + menu compte -->
+          <div class="relative flex items-center gap-1 text-sm text-gray-700" #userDropdown>
+            <i class="fas fa-user text-gray-500"></i>
+            <button class="account-btn" (click)="toggleUserDropdown($event)">
+              <span>Bonjour, {{ userName || 'Client' }}</span>
+              <i class="fas fa-chevron-down text-xs"></i>
+            </button>
+            <div *ngIf="isUserDropdownOpen" class="nav-dropdown">
+              <button type="button" (click)="goToProfile()" class="nav-dropdown-item">
+                <i class="fas fa-user mr-2"></i>
+                Profil
+              </button>
+              <button type="button" (click)="goToOrders()" class="nav-dropdown-item">
+                <i class="fas fa-receipt mr-2"></i>
+                Mes commandes
+              </button>
+              <button type="button" (click)="logout()" class="nav-dropdown-item danger">
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                Déconnexion
+              </button>
+            </div>
+          </div>
+
+          <!-- Aide -->
+          <button class="help-btn" type="button" (click)="openHelp()">
+            <i class="fas fa-question-circle"></i>
+            <span>Aide</span>
+          </button>
+
+          <!-- Panier -->
+          <a class="icon-btn" routerLink="/panier" aria-label="Panier">
+            <i class="fas fa-shopping-bag"></i>
+            <span *ngIf="cartItemCount > 0" class="badge">{{ cartItemCount }}</span>
+          </a>
+        </div>
+
+        <!-- Zone droite quand non connecté -->
+        <div class="hidden lg:flex items-center gap-2" *ngIf="!isLoggedIn">
+          <button (click)="goToLogin()" class="btn-ghost">Connexion</button>
+          <button (click)="goToRegister()" class="btn-solid">Inscription</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGNE D'ONGLETS PRODUITS / CATÉGORIES (desktop) -->
+  <div class="nav-bottom hidden lg:block" *ngIf="isLoggedIn">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="nav-bottom-inner">
+        <!-- Bouton catégories à gauche -->
+        <a class="categories-btn" routerLink="/categories">
+          <i class="fas fa-bars"></i>
+          Catégories
+        </a>
+
+        <!-- Onglets principaux -->
+        <div class="nav-links">
+          <a routerLink="/produits" routerLinkActive="active">Produits</a>
+          <a routerLink="/categories" routerLinkActive="active">Catégories</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu mobile (affiché/caché par toggleMobileMenu) -->
+  <div class="lg:hidden" *ngIf="mobileMenuOpen">
+    <a routerLink="/home" routerLinkActive="bg-indigo-700"
+      class="block px-4 py-2 hover:bg-indigo-600">Accueil</a>
+
+    <form *ngIf="isLoggedIn" class="mobile-search" (submit)="$event.preventDefault(); onSearchSubmit();">
+      <i class="fas fa-search"></i>
+      <input type="text" [(ngModel)]="navSearchTerm" name="navSearchMobile" placeholder="Rechercher..." />
+      <button type="submit">OK</button>
+    </form>
+
+    <!-- Liens visibles UNIQUEMENT si connecté (Mobile) -->
+    <ng-container *ngIf="isLoggedIn">
+      <a routerLink="/produits" routerLinkActive="bg-indigo-700"
+        class="block px-4 py-2 hover:bg-indigo-600">Produits</a>
+      <a routerLink="/categories" routerLinkActive="bg-indigo-700"
+        class="block px-4 py-2 hover:bg-indigo-600">Catégories</a>
+      <a routerLink="/a-propos" routerLinkActive="bg-indigo-700"
+        class="block px-4 py-2 hover:bg-indigo-600">À Propos</a>
+      <a routerLink="/contact" routerLinkActive="bg-indigo-700"
+        class="block px-4 py-2 hover:bg-indigo-600">Contact</a>
+
+      <!-- Lien Panier pour Mobile - MAINTENANT AVEC SVG ET STYLE DE BOUTON -->
+      <a routerLink="/panier" routerLinkActive="bg-indigo-700"
+        class="cart-button-mobile">
+        <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+        </svg>
+        Mon Panier
+        <span *ngIf="cartItemCount > 0" class="cart-badge-mobile">{{ cartItemCount }}</span>
+      </a>
+
+      <!-- Liens de profil/déconnexion directs pour la simplicité mobile -->
+      <a (click)="goToProfile()" class="block px-4 py-2 hover:bg-indigo-600">
+          <i class="fas fa-user mr-2"></i> Profil
+      </a>
+      <a (click)="goToOrders()" class="block px-4 py-2 hover:bg-indigo-600">
+          <i class="fas fa-receipt mr-2"></i> Mes commandes
+      </a>
+      <button (click)="logout()"
+        class="w-full text-left px-4 py-2 border border-red-500 rounded hover:bg-red-600 hover:text-white transition mt-2">
+        Déconnexion
+      </button>
+    </ng-container>
+
+    <!-- Boutons Connexion/Inscription visibles UNIQUEMENT si NON connecté (Mobile) -->
+    <ng-container *ngIf="!isLoggedIn">
+      <button (click)="goToLogin()"
+        class="w-full text-left px-4 py-2 border border-indigo-400 rounded hover:bg-indigo-400 hover:text-gray-900 transition mt-2">
+        Connexion
+      </button>
+      <button (click)="goToRegister()"
+        class="w-full text-left px-4 py-2 bg-indigo-600 rounded hover:bg-indigo-700 transition mt-2">
+        Inscription
+      </button>
+    </ng-container>
+  </div>
+</nav>

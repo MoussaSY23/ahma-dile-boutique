@@ -1,0 +1,8 @@
+/* src/app/app.component.css */
+
+.main-content-wrapper {
+  padding-top: 64px; /* La hauteur de votre navbar (h-16 = 4rem = 64px) */
+  /* Ajoutez d'autres styles si nécessaire, par exemple min-height pour s'assurer que le footer est en bas */
+  min-height: calc(100vh - 64px - var(--footer-height, 150px)); /* Ajustez --footer-height si besoin */
+  /* La variable --footer-height devrait être définie dans votre footer.component.css ou styles.css */
+}

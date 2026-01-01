@@ -1,0 +1,272 @@
+<div class="pt-20">
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4" *ngIf="produit">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-800 rounded-full text-sm font-semibold mb-4">
+        <i class="fas fa-edit mr-2"></i>
+        Mode édition
+      </div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Modifier le Produit</h1>
+      <p class="text-gray-600">{{ produit.nom }}</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div class="bg-gradient-to-r from-amber-500 to-orange-500 h-2"></div>
+      
+      <form (ngSubmit)="modifierProduit()" enctype="multipart/form-data" class="p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Colonne gauche -->
+          <div class="space-y-6">
+            <!-- Nom du produit -->
+            <div class="form-group">
+              <label for="nom" class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="fas fa-tag mr-2 text-blue-500"></i>Nom du produit
+              </label>
+              <input 
+                type="text" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 hover:border-gray-400" 
+                id="nom" 
+                name="nom" 
+                [(ngModel)]="produit.nom"
+                required 
+                placeholder="Ex: iPhone 14 Pro"
+              />
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="fas fa-align-left mr-2 text-blue-500"></i>Description
+              </label>
+              <textarea 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 hover:border-gray-400 resize-none" 
+                id="description" 
+                name="description" 
+                [(ngModel)]="produit.description"
+                rows="4"
+                placeholder="Décrivez votre produit en détail..."
+              ></textarea>
+            </div>
+
+            <!-- Prix et Quantité -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-group">
+                <label for="prix" class="block text-sm font-semibold text-gray-700 mb-2">
+                  <i class="fas fa-euro-sign mr-2 text-green-500"></i>Prix
+                </label>
+                <input 
+                  type="number" 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 hover:border-gray-400" 
+                  id="prix" 
+                  name="prix" 
+                  [(ngModel)]="produit.prix"
+                  required 
+                  step="0.01"
+                  placeholder="0.00"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="quantite" class="block text-sm font-semibold text-gray-700 mb-2">
+                  <i class="fas fa-boxes mr-2 text-orange-500"></i>Quantité
+                </label>
+                <input 
+                  type="number" 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 hover:border-gray-400" 
+                  id="quantite" 
+                  name="quantite" 
+                  [(ngModel)]="produit.quantite"
+                  required 
+                  placeholder="0"
+                />
+              </div>
+            </div>
+
+            <!-- Unité et Type -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-group">
+                <label for="unite" class="block text-sm font-semibold text-gray-700 mb-2">
+                  <i class="fas fa-ruler mr-2 text-purple-500"></i>Unité
+                </label>
+                <input 
+                  type="text" 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 hover:border-gray-400" 
+                  id="unite" 
+                  name="unite" 
+                  [(ngModel)]="produit.unite"
+                  required 
+                  placeholder="Ex: pièce, kg, litre"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="type" class="block text-sm font-semibold text-gray-700 mb-2">
+                  <i class="fas fa-layer-group mr-2 text-indigo-500"></i>Type
+                </label>
+                <input 
+                  type="text" 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 hover:border-gray-400" 
+                  id="type" 
+                  name="type" 
+                  [(ngModel)]="produit.type"
+                  required 
+                  placeholder="Ex: Électronique, Vêtement"
+                />
+              </div>
+            </div>
+
+            <!-- ID Catégorie -->
+            <div class="form-group">
+              <label for="categorie_id" class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="fas fa-folder mr-2 text-yellow-500"></i>ID Catégorie
+              </label>
+              <input 
+                type="number" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 hover:border-gray-400" 
+                id="categorie_id" 
+                name="categorie_id" 
+                [(ngModel)]="produit.categorie_id"
+                required 
+                placeholder="1"
+              />
+            </div>
+          </div>
+
+          <!-- Colonne droite -->
+          <div class="space-y-6">
+            <!-- Image actuelle -->
+            <div class="form-group" *ngIf="produit.image">
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="fas fa-image mr-2 text-pink-500"></i>Image actuelle
+              </label>
+              <div class="bg-gray-50 rounded-lg p-6 border-2 border-dashed border-gray-200">
+                <div class="flex flex-col items-center">
+                  <img 
+                    [src]="'http://127.0.0.1:8000/storage/' + produit.image" 
+                    class="w-32 h-32 object-cover rounded-lg shadow-md mb-4"
+                    [alt]="produit.nom"
+                  />
+                  <p class="text-sm text-gray-600 text-center">
+                    Image actuelle du produit
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upload d'image -->
+            <div class="form-group">
+              <label for="image" class="block text-sm font-semibold text-gray-700 mb-2">
+                <i class="fas fa-image mr-2 text-pink-500"></i>Image du produit
+              </label>
+              <div class="relative">
+                <input 
+                  type="file" 
+                  class="hidden" 
+                  id="image" 
+                  (change)="onFilesSelected($event)" 
+                  accept="image/*" 
+                  multiple
+                />
+
+                <label 
+                  for="image" 
+                  class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all duration-200"
+                >
+                  <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                    <p class="text-sm text-gray-500">
+                      <span class="font-semibold">Cliquer pour changer</span> l'image
+                    </p>
+                    <p class="text-xs text-gray-500">PNG, JPG, JPEG (MAX. 10MB)</p>
+                  </div>
+                </label>
+              </div>
+              <p class="text-xs text-gray-500 mt-2">
+                <i class="fas fa-info-circle mr-1"></i>
+                Laissez vide pour conserver l'image actuelle
+              </p>
+            </div>
+
+            <!-- Informations de modification -->
+            <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg p-6 border border-amber-200">
+              <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                <i class="fas fa-info-circle mr-2 text-amber-600"></i>Informations
+              </h3>
+              <div class="space-y-3 text-sm">
+                <div class="flex items-center text-gray-600">
+                  <i class="fas fa-clock mr-2 text-amber-500"></i>
+                  <span>Dernière modification en cours...</span>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <i class="fas fa-save mr-2 text-green-500"></i>
+                  <span>Toutes les modifications seront sauvegardées</span>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <i class="fas fa-history mr-2 text-blue-500"></i>
+                  <span>Vous pouvez annuler à tout moment</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Aperçu des modifications -->
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
+              <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                <i class="fas fa-eye mr-2 text-blue-600"></i>Aperçu des modifications
+              </h3>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Nom:</span>
+                  <span class="font-medium text-gray-800">{{produit.nom}}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Prix:</span>
+                  <span class="font-medium text-gray-800">{{produit.prix}} €</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Quantité:</span>
+                  <span class="font-medium text-gray-800">{{produit.quantite}} {{produit.unite}}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Type:</span>
+                  <span class="font-medium text-gray-800">{{produit.type}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boutons d'action -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10 pt-6 border-t border-gray-200">
+          <button 
+            type="submit" 
+            class="px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-lg shadow-lg hover:from-amber-600 hover:to-orange-600 transform hover:scale-105 transition-all duration-200 flex items-center justify-center"
+          >
+            <i class="fas fa-save mr-2"></i>
+            Enregistrer les modifications
+          </button>
+          
+          <a 
+            class="px-8 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105 transition-all duration-200 flex items-center justify-center" 
+            routerLink="/produits"
+          >
+            <i class="fas fa-times mr-2"></i>
+            Annuler
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Footer info -->
+    <div class="text-center mt-8 text-gray-500 text-sm">
+      <p>
+        <i class="fas fa-shield-alt mr-1"></i>
+        Toutes les modifications sont sécurisées et sauvegardées automatiquement
+      </p>
+    </div>
+  </div>
+</div>
+
+
+</div>

@@ -1,0 +1,106 @@
+<div class="register-page">
+  <div class="register-container">
+    <div class="register-left">
+      <div class="brand-logo">🌟 Ahma-Dile</div>
+      <h1>Rejoignez la communauté Ahma-Dile</h1>
+      <p>Créez votre compte pour accéder à nos collections exclusives, suivre vos commandes et gérer vos favoris.</p>
+      <div class="benefits">
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Accès à des produits exclusifs</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Suivi de commandes en temps réel</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Liste de souhaits personnalisée</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="register-right">
+      <div class="register-card">
+        <div class="register-header">
+          <h2>Créer un compte</h2>
+          <p>Commencez votre voyage avec Ahma-Dile</p>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="name">Nom complet</label>
+            <input
+              formControlName="name"
+              type="text"
+              id="name"
+              class="form-input"
+              placeholder="Votre nom complet"
+              [class.error]="name?.invalid && name?.touched">
+            <div *ngIf="name?.invalid && name?.touched" class="field-error">
+              <span *ngIf="name?.errors?.['required']">Votre nom est requis</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              formControlName="email"
+              type="email"
+              id="email"
+              class="form-input"
+              placeholder="votre.email@exemple.com"
+              [class.error]="email?.invalid && email?.touched">
+            <div *ngIf="email?.invalid && email?.touched" class="field-error">
+              <span *ngIf="email?.errors?.['required']">L'email est requis</span>
+              <span *ngIf="email?.errors?.['email']">Veuillez entrer un email valide</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input
+              formControlName="password"
+              type="password"
+              id="password"
+              class="form-input"
+              placeholder="Minimum 8 caractères"
+              [class.error]="password?.invalid && password?.touched">
+            <div *ngIf="password?.invalid && password?.touched" class="field-error">
+              <span *ngIf="password?.errors?.['required']">Le mot de passe est requis</span>
+              <span *ngIf="password?.errors?.['minlength']">Minimum 8 caractères</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password_confirmation">Confirmation</label>
+            <input
+              formControlName="password_confirmation"
+              type="password"
+              id="password_confirmation"
+              class="form-input"
+              placeholder="Retapez votre mot de passe"
+              [class.error]="form.hasError('mismatch') && password_confirmation?.touched">
+            <div *ngIf="form.hasError('mismatch') && password_confirmation?.touched" class="field-error">
+              <span>Les mots de passe ne correspondent pas</span>
+            </div>
+          </div>
+
+          <div class="terms">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">J'accepte les <a href="#">Conditions d'utilisation</a> et la <a href="#">Politique de confidentialité</a></label>
+          </div>
+
+          <button type="submit" class="submit-btn" [disabled]="form.invalid || isLoading">
+            <span *ngIf="!isLoading">S'inscrire</span>
+            <span *ngIf="isLoading" class="loading-spinner"></span>
+          </button>
+        </form>
+
+        <div class="login-link">
+          <p>Déjà membre? <a routerLink="/connexion">Se connecter</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,240 @@
+/* Variables de couleurs (assurez-vous qu'elles correspondent à vos variables globales si elles sont définies ailleurs) */
+:host {
+  --primary-color: #2c3e50; /* Bleu foncé/gris anthracite */
+  --secondary-color: #e74c3c; /* Rouge orangé */
+  --accent-color: #f1c40f; /* Jaune vif */
+  --text-light: #ecf0f1; /* Gris très clair */
+  --text-dark: #2c3e50; /* Texte foncé */
+  --bg-light: #f9f9f9; /* Arrière-plan clair */
+  --footer-bg-dark: #1a202c; /* Fond du pied de page plus foncé que primary-color */
+  --footer-text-color: #a0aec0; /* Texte clair pour le pied de page */
+  --footer-link-hover: #e74c3c; /* Couleur de survol des liens */
+  --footer-border-color: rgba(255, 255, 255, 0.1); /* Bordure subtile */
+}
+
+.main-footer {
+  background-color: var(--footer-bg-dark); /* Fond très sombre pour un contraste élevé */
+  color: var(--footer-text-color);
+  padding: 4rem 0 1rem; /* Plus de padding en haut, moins en bas pour le copyright */
+  font-family: 'Inter', sans-serif;
+  border-top: 5px solid var(--primary-color); /* Bordure supérieure pour marquer la section */
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Colonnes responsives */
+  gap: 2.5rem; /* Espacement entre les sections */
+  padding-bottom: 3rem; /* Espace avant le copyright */
+  border-bottom: 1px solid var(--footer-border-color); /* Ligne de séparation subtile */
+}
+
+.footer-section {
+  text-align: left;
+}
+
+.footer-section h3 {
+  color: var(--text-light); /* Titres plus clairs pour la lisibilité */
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.footer-section h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--secondary-color); /* Soulignement coloré */
+  border-radius: 2px;
+}
+
+.footer-section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Liens */
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-section ul li a {
+  color: var(--footer-text-color);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-block; /* Permet la transformation */
+}
+
+.footer-section ul li a:hover {
+  color: var(--footer-link-hover);
+  transform: translateX(5px); /* Effet de glissement au survol */
+}
+
+/* Icônes sociales */
+.social-icons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  color: var(--footer-text-color);
+  font-size: 1.4rem;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--footer-border-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: var(--secondary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Informations de contact */
+.contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.contact-info i {
+  color: var(--secondary-color); /* Icônes colorées */
+  font-size: 1.1rem;
+  min-width: 20px; /* Pour aligner le texte */
+}
+
+/* Newsletter */
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.newsletter-form input {
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--footer-border-color);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05); /* Fond subtil pour l'input */
+  color: var(--text-light);
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.newsletter-form input::placeholder {
+  color: var(--footer-text-color);
+  opacity: 0.7;
+}
+
+.newsletter-form input:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+}
+
+.btn-subscribe {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-subscribe:hover {
+  background: #c0392b; /* Rouge plus foncé au survol */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+}
+
+/* Copyright */
+.footer-bottom {
+  text-align: center;
+  padding: 1.5rem 0;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--footer-text-color);
+  border-top: 1px solid var(--footer-border-color); /* Ligne de séparation */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    text-align: center;
+  }
+
+  .footer-section {
+    padding-bottom: 2rem; /* Espacement entre les sections empilées */
+    border-bottom: 1px solid var(--footer-border-color);
+  }
+
+  .footer-section:last-child {
+    border-bottom: none; /* Pas de bordure pour la dernière section */
+    padding-bottom: 0;
+  }
+
+  .footer-section h3::after {
+    left: 50%;
+    transform: translateX(-50%); /* Centrer le soulignement */
+  }
+
+  .social-icons {
+    justify-content: center; /* Centrer les icônes sociales */
+  }
+
+  .contact-info p {
+    justify-content: center; /* Centrer les infos de contact */
+  }
+
+  .newsletter-form {
+    align-items: center; /* Centrer le formulaire */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-footer {
+    padding: 3rem 0 1rem;
+  }
+
+  .footer-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .footer-section p,
+  .footer-section ul li a,
+  .newsletter-form input,
+  .btn-subscribe {
+    font-size: 0.9rem;
+  }
+
+  .social-icon {
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+  }
+}

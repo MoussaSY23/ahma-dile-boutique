@@ -1,0 +1,55 @@
+<!-- HERO BANNIERE -->
+<section class="h-[90vh] flex items-center justify-center bg-cover bg-center relative" style="background-image: url('../../assets/images/2303.w018.n002.1707A.p30.1707.jpg');">
+  <div class="bg-black bg-opacity-60 absolute inset-0"></div>
+  <div class="text-center text-white relative z-10">
+    <h1 class="text-5xl font-bold mb-4 animate-fadeIn">Élégance & Créativité</h1>
+    <p class="text-xl mb-6">Des tissus et accessoires pour donner vie à vos projets couture</p>
+    <button mat-raised-button color="accent" class="bg-white text-rose-600 hover:bg-rose-100 transition">Voir la boutique</button>
+  </div>
+</section>
+
+<!-- UNIVERS -->
+<!-- <section class="py-16 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-12">Nos Univers</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <app-card-produit [produit]="{ nom: 'Tissus', image: '/assets/tissus.jpg', description: 'Des tissus tendance et de qualité supérieure pour tous vos projets.', prix: 0, quantite: 0, unite: '', type: '', categorie_id: 0 }"></app-card-produit>
+      <app-card-produit [produit]="{ nom: 'Mercerie', image: '/assets/mercerie.jpg', description: 'Tout le nécessaire pour coudre, créer, réparer.', prix: 0, quantite: 0, unite: '', type: '', categorie_id: 0 }"></app-card-produit>
+      <app-card-produit [produit]="{ nom: 'Nouveautés', image: '/assets/nouveautes.jpg', description: 'Les dernières tendances tissus et accessoires.', prix: 0, quantite: 0, unite: '', type: '', categorie_id: 0 }"></app-card-produit>
+    </div>
+  </div>
+</section> -->
+
+<!-- PRODUITS RECENTS -->
+<section class="bg-white py-16">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold mb-8">Produits récents</h2>
+    <div *ngIf="isLoading" class="text-gray-500">Chargement des produits...</div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6" *ngIf="!isLoading">
+      <ng-container *ngFor="let produit of produitsRecents">
+        <app-card-produit [produit]="produit"></app-card-produit>
+      </ng-container>
+    </div>
+    <button routerLink="/produits" class="mt-10 px-6 py-3 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition">Voir tous les produits</button>
+  </div>
+</section>
+
+<!-- STATS -->
+<app-section-stats
+  [produits]="nombreProduits"
+  [commandes]="nombreCommandes"
+  [clients]="nombreClients">
+</app-section-stats>
+
+<!-- CTA Newsletter -->
+<section class="bg-rose-50 py-12 text-center">
+  <h2 class="text-2xl font-semibold mb-4">Inscrivez-vous à notre newsletter</h2>
+  <p class="mb-6 text-gray-700">Recevez des offres exclusives et les dernières nouveautés</p>
+  <form class="flex flex-col md:flex-row justify-center items-center gap-4">
+    <input type="email" placeholder="Votre email" class="px-4 py-2 border rounded w-72">
+    <button type="submit" class="bg-rose-500 text-white px-6 py-2 rounded hover:bg-rose-600 transition">S'inscrire</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+
