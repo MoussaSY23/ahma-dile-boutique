@@ -1,0 +1,77 @@
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-logo">
+      <div class="admin-logo-badge">Ahma‑Dile</div>
+      <div class="admin-logo-sub">E‑Boutique Admin</div>
+    </div>
+    <nav class="admin-nav">
+      <a routerLink="/admin/dashboard" routerLinkActive="active">
+        <span class="admin-nav-icon"><mat-icon>grid_view</mat-icon></span>
+        <span class="admin-nav-label">Dashboard</span>
+      </a>
+      <a routerLink="/admin/produits" routerLinkActive="active">
+        <span class="admin-nav-icon"><mat-icon>inventory_2</mat-icon></span>
+        <span class="admin-nav-label">Produits</span>
+      </a>
+      <a routerLink="/admin/categories" routerLinkActive="active">
+        <span class="admin-nav-icon"><mat-icon>category</mat-icon></span>
+        <span class="admin-nav-label">Catégories</span>
+      </a>
+      <a routerLink="/admin/commandes" routerLinkActive="active">
+        <span class="admin-nav-icon"><mat-icon>receipt_long</mat-icon></span>
+        <span class="admin-nav-label">Commandes</span>
+      </a>
+      <a routerLink="/admin/utilisateurs" routerLinkActive="active">
+        <span class="admin-nav-icon"><mat-icon>group</mat-icon></span>
+        <span class="admin-nav-label">Utilisateurs</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="admin-content">
+    <header class="admin-topbar">
+      <div class="admin-topbar-left">
+        <div class="admin-search-wrapper">
+          <input
+            type="text"
+            class="admin-search-input"
+            placeholder="Rechercher dans l'admin..."
+          />
+          <mat-icon class="admin-search-icon" fontIcon="search"></mat-icon>
+        </div>
+      </div>
+
+      <div class="admin-topbar-right">
+        <button type="button" class="admin-icon-btn" title="Notifications">
+          <mat-icon>notifications</mat-icon>
+          <span class="admin-notif-dot"></span>
+        </button>
+
+        <div class="admin-profile" [class.open]="isProfileMenuOpen">
+          <button type="button" class="admin-profile-trigger" (click)="toggleProfileMenu()">
+            <div class="admin-avatar">
+              <ng-container *ngIf="userImageUrl; else initialAvatar">
+                <img [src]="userImageUrl" alt="Avatar" (error)="currentUser.image = null" />
+              </ng-container>
+              <ng-template #initialAvatar>
+                <span>{{ userInitial }}</span>
+              </ng-template>
+            </div>
+            <div class="admin-profile-info">
+              <div class="admin-profile-name">{{ currentUser?.name || 'Administrateur' }}</div>
+              <div class="admin-profile-role">Admin</div>
+            </div>
+            <mat-icon class="admin-profile-chevron">expand_more</mat-icon>
+          </button>
+
+          <div class="admin-profile-menu" *ngIf="isProfileMenuOpen">
+            <button type="button" routerLink="/admin/profil">Voir le profil</button>
+            <button type="button" (click)="logout()">Déconnexion</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <router-outlet></router-outlet>
+  </main>
+</div>

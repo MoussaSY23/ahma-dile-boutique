@@ -1,0 +1,272 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 240px;
+  background: linear-gradient(180deg, #1d4ed8, #1e40af);
+  color: #e5e7eb;
+  padding: 1.75rem 1.25rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 1.75rem 1.75rem 0;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.4);
+}
+
+.admin-logo {
+  margin-bottom: 2rem;
+}
+
+.admin-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.admin-logo-sub {
+  margin-top: 0.4rem;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+}
+
+.admin-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.9rem;
+  margin-bottom: 0.4rem;
+  border-radius: 999px;
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.admin-nav a.active,
+.admin-nav a:hover {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+}
+
+.admin-nav-icon mat-icon {
+  font-size: 1.1rem;
+}
+
+.admin-nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.28);
+}
+
+.admin-nav a.active .admin-nav-icon,
+.admin-nav a:hover .admin-nav-icon {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.admin-nav-label {
+  font-weight: 500;
+}
+
+.admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  margin: 0 0 1.25rem 0;
+  background: linear-gradient(90deg, #ffffff, #eff6ff, #fff7ed);
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
+}
+
+.admin-topbar-left {
+  flex: 1;
+}
+
+.admin-search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  min-width: 260px;
+}
+
+.admin-search-input {
+  width: 100%;
+  padding: 0.5rem 2.25rem 0.5rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+  background: #ffffff;
+  color: #111827;
+}
+
+.admin-search-input:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 1px #f97316;
+}
+
+.admin-search-icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+.admin-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: none;
+  background: #fff7ed;
+  color: #f97316;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(248, 148, 72, 0.3);
+}
+
+.admin-icon {
+  font-size: 0.9rem;
+}
+
+.admin-icon-btn mat-icon {
+  font-size: 1.1rem;
+}
+
+.admin-notif-dot {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #f97316;
+}
+
+.admin-profile {
+  position: relative;
+}
+
+.admin-profile-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.admin-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.admin-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.admin-profile-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.admin-profile-role {
+  font-size: 0.7rem;
+  color: #f97316;
+}
+
+.admin-profile-chevron {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.admin-profile-menu {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  min-width: 170px;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+  padding: 0.25rem;
+  z-index: 20;
+}
+
+.admin-profile-menu button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.8rem;
+  color: #111827;
+  cursor: pointer;
+}
+
+.admin-profile-menu button:hover {
+  background: #f3f4f6;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  background: #f3f4f6;
+  margin-left: 240px; /* Décale le contenu pour laisser la place au sidebar fixe */
+  min-height: 100vh;
+  overflow-y: auto;
+}

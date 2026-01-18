@@ -39,8 +39,14 @@ export class AuthService {
           localStorage.setItem('user', JSON.stringify(res.user));
         }
 
-        // Redirection après connexion
-        this.router.navigate(['/accueil']); // à adapter
+        // Redirection après connexion selon le rôle
+        if (res.user?.role === 'admin') {
+          // Interface d'admin : dashboard dédié
+          this.router.navigate(['/admin']);
+        } else {
+          // Interface client classique
+          this.router.navigate(['/produits']);
+        }
       })
     );
   }

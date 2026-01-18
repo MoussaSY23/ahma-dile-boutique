@@ -18,6 +18,7 @@ use App\Http\Controllers\API\FavoriController;
 use App\Http\Controllers\API\ProduitImageController;
 use App\Http\Controllers\API\PromotionController;
 use App\Http\Controllers\API\LivraisonController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,28 +80,34 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 /*
-|--------------------------------------------------------------------------
-// 🛠️ ROUTES ADMIN / VENDEUR (SIMPLIFIÉES POUR LE MOMENT)
+//--------------------------------------------------------------------------
+// 🛠️ ROUTES ADMIN
 //--------------------------------------------------------------------------
 */
-Route::post('/categories',             [CategorieController::class, 'store']);
-Route::post('/produits',               [ProduitController::class, 'store']);
-Route::put('/produits/{id}',           [ProduitController::class, 'update']);
-Route::post('/produits/{id}/images',   [ProduitImageController::class, 'store']);
-
-
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
     /* ================= PRODUITS ================= */
+    Route::post('/produits',               [ProduitController::class, 'store']);
+    Route::put('/produits/{id}',           [ProduitController::class, 'update']);
     Route::delete('/produits/{id}',        [ProduitController::class, 'destroy']);
+    Route::post('/produits/{id}/images',   [ProduitImageController::class, 'store']);
 
     /* ================= CATEGORIES ================= */
+    Route::post('/categories',             [CategorieController::class, 'store']);
     Route::put('/categories/{id}',         [CategorieController::class, 'update']);
     Route::delete('/categories/{id}',      [CategorieController::class, 'destroy']);
 
+    /* ================= COMMANDES (ADMIN) ================= */
+    Route::get('/admin/commandes',         [CommandeController::class, 'indexAll']);
     /* ================= COMMANDES ================= */
     Route::put('/commandes/{id}',          [CommandeController::class, 'update']);
     Route::delete('/commandes/{id}',       [CommandeController::class, 'destroy']);
+
+    /* ================= UTILISATEURS ================= */
+    Route::get('/users',                   [UserController::class, 'index']);
+    Route::get('/users/{id}',              [UserController::class, 'show']);
+    Route::put('/users/{id}',              [UserController::class, 'update']);
+    Route::delete('/users/{id}',           [UserController::class, 'destroy']);
 
     /* ================= PROMOTIONS ================= */
     Route::post('/promotions',             [PromotionController::class, 'store']);

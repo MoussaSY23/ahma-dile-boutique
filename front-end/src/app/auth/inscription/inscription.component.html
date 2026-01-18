@@ -27,6 +27,10 @@
           <p>Commencez votre voyage avec Ahma-Dile</p>
         </div>
 
+        <div *ngIf="apiError" class="api-error">
+          {{ apiError }}
+        </div>
+
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="name">Nom complet</label>
@@ -87,7 +91,7 @@
           </div>
 
           <div class="terms">
-            <input type="checkbox" id="terms" required>
+            <input type="checkbox" id="terms" formControlName="terms">
             <label for="terms">J'accepte les <a href="#">Conditions d'utilisation</a> et la <a href="#">Politique de confidentialité</a></label>
           </div>
 

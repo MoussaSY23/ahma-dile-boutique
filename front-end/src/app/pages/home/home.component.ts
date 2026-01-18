@@ -1,46 +1,54 @@
-/* home.component.ts */
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../services/home/home.service';
 import { Produit } from '../../models/produit';
+import { Categorie } from '../../models/categorie';
+import { CategorieService } from '../../services/categorie/categorie.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  nombreProduits = 0;
-  nombreCommandes = 0;
-  nombreClients = 0;
-  produitsRecents: Produit[] = [];
-  isLoading: boolean = false;
 
-  constructor(private homeService: HomeService) {}
+  produitsRecents: Produit[] = [];
+  categories: Categorie[] = [];
+
+  loadingProduits = false;
+  loadingCategories = false;
+
+  constructor(
+    private homeService: HomeService,
+    private categorieService: CategorieService
+  ) {}
 
   ngOnInit(): void {
-    this.getStats();
-    this.getProduitsRecents();
+    this.loadProduitsRecents();
+    this.loadCategories();
   }
 
-  getStats(): void {
-    this.homeService.getStats().subscribe(data => {
-      this.nombreProduits = data.nombreProduits;
-      this.nombreCommandes = data.nombreCommandes;
-      this.nombreClients = data.nombreClients;
+  loadProduitsRecents(): void {
+    this.loadingProduits = true;
+    this.homeService.getProduitsRecents().subscribe({
+      next: (data) => {
+        this.produitsRecents = data;
+        this.loadingProduits = false;
+      },
+      error: () => this.loadingProduits = false
     });
   }
 
-  getProduitsRecents(): void {
-    this.isLoading = true;
-    this.homeService.getProduitsRecents().subscribe(
-      data => {
-        this.produitsRecents = data;
-        this.isLoading = false;
+  loadCategories(): void {
+    this.loadingCategories = true;
+    this.categorieService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+        this.loadingCategories = false;
       },
-      error => {
-        console.error('Erreur lors de la récupération des produits récents', error);
-        this.isLoading = false;
-      }
-    );
+      error: () => this.loadingCategories = false
+    });
+  }
+
+  image(url?: string): string {
+    return url || 'assets/images/placeholder.jpg';
   }
 }

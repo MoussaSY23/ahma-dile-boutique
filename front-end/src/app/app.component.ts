@@ -17,8 +17,11 @@ export class AppComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const currentUrl = event.urlAfterRedirects;
-        this.showNav = !['/connexion', '/inscription'].includes(currentUrl);
-        this.showFooter = !['/connexion', '/inscription'].includes(currentUrl);
+        const isAuthPage = ['/connexion', '/inscription'].includes(currentUrl);
+        const isAdminPage = currentUrl.startsWith('/admin');
+
+        this.showNav = !isAuthPage && !isAdminPage;
+        this.showFooter = !isAuthPage && !isAdminPage;
       }
     });
   }

@@ -27,6 +27,14 @@ class CommandeController extends Controller
         );
     }
 
+    public function indexAll()
+    {
+        return response()->json(
+            $this->commandeService->getAll(),
+            200
+        );
+    }
+
     /**
      * 🛒 Création d'une commande à partir du panier
      */
@@ -54,7 +62,9 @@ class CommandeController extends Controller
     {
         $commande = $this->commandeService->getById($id);
 
-        if ($commande->user_id !== Auth::id()) {
+        $user = Auth::user();
+
+        if (!$user || ($user->role !== 'admin' && $commande->user_id !== $user->id)) {
             return response()->json(['message' => 'Accès non autorisé'], 403);
         }
 

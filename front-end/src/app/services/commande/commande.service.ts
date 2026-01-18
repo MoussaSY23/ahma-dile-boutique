@@ -7,6 +7,7 @@ import { Commande } from '../../models/commande.model';
 @Injectable({ providedIn: 'root' })
 export class CommandeService {
   private apiUrl = 'http://localhost:8000/api/commandes';
+  private adminApiUrl = 'http://localhost:8000/api/admin/commandes';
 
   constructor(private http: HttpClient) {}
 
@@ -23,6 +24,20 @@ export class CommandeService {
   }
   creerOuMettreAJourLivraison(commandeId: number, data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/${commandeId}/livraison`, data);
+  }
+
+  // ==== Méthodes admin ====
+
+  getAllCommandesAdmin(): Observable<Commande[]> {
+    return this.http.get<Commande[]>(this.adminApiUrl);
+  }
+
+  updateCommandeStatusAdmin(id: number, statut: string): Observable<Commande> {
+    return this.http.put<Commande>(`${this.apiUrl}/${id}`, { statut });
+  }
+
+  deleteCommandeAdmin(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
 

@@ -1,55 +1,122 @@
-<!-- HERO BANNIERE -->
-<section class="h-[90vh] flex items-center justify-center bg-cover bg-center relative" style="background-image: url('../../assets/images/2303.w018.n002.1707A.p30.1707.jpg');">
-  <div class="bg-black bg-opacity-60 absolute inset-0"></div>
-  <div class="text-center text-white relative z-10">
-    <h1 class="text-5xl font-bold mb-4 animate-fadeIn">Élégance & Créativité</h1>
-    <p class="text-xl mb-6">Des tissus et accessoires pour donner vie à vos projets couture</p>
-    <button mat-raised-button color="accent" class="bg-white text-rose-600 hover:bg-rose-100 transition">Voir la boutique</button>
+<section class="bg-gradient-to-r from-primary via-[#9A3412] to-[#B45309] text-white">
+  <div class="max-w-7xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center">
+
+    <div class="space-y-6 animate-fade-in">
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+        Le tissu qui sublime<br />
+        <span class="text-secondary">vos créations</span>
+      </h1>
+      <p class="text-lg text-gray-200">
+        Vente de tissus africains, modernes et traditionnels,
+        sélectionnés avec exigence.
+      </p>
+      <a
+        routerLink="/boutique"
+        class="inline-block bg-secondary text-black px-8 py-3 rounded-full font-semibold hover:bg-amber-400 transition transform hover:scale-105"
+      >
+        Découvrir la boutique
+      </a>
+    </div>
+
+    <div class="hidden md:block animate-slide-up">
+      <img
+        src="assets/images/hero-tissu.png"
+        class="rounded-3xl shadow-2xl"
+        alt="Tissus"
+      />
+    </div>
+
   </div>
 </section>
+<section class="max-w-7xl mx-auto px-6 py-20">
+  <h2 class="text-3xl font-bold text-center mb-12">
+    Nos catégories
+  </h2>
 
-<!-- UNIVERS -->
-<!-- <section class="py-16 bg-gray-50">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-3xl font-bold text-center mb-12">Nos Univers</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <app-card-produit [produit]="{ nom: 'Tissus', image: '/assets/tissus.jpg', description: 'Des tissus tendance et de qualité supérieure pour tous vos projets.', prix: 0, quantite: 0, unite: '', type: '', categorie_id: 0 }"></app-card-produit>
-      <app-card-produit [produit]="{ nom: 'Mercerie', image: '/assets/mercerie.jpg', description: 'Tout le nécessaire pour coudre, créer, réparer.', prix: 0, quantite: 0, unite: '', type: '', categorie_id: 0 }"></app-card-produit>
-      <app-card-produit [produit]="{ nom: 'Nouveautés', image: '/assets/nouveautes.jpg', description: 'Les dernières tendances tissus et accessoires.', prix: 0, quantite: 0, unite: '', type: '', categorie_id: 0 }"></app-card-produit>
+  <div *ngIf="loadingCategories" class="text-center text-gray-500">
+    Chargement...
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <div
+      *ngFor="let c of categories"
+      class="bg-white rounded-2xl shadow hover:shadow-xl transition animate-zoom-in"
+    >
+      <div class="h-40 overflow-hidden rounded-t-2xl">
+        <img
+          [src]="image(c.imageUrl)"
+          class="w-full h-full object-cover hover:scale-110 transition duration-500"
+        />
+      </div>
+      <div class="p-4 text-center">
+        <h3 class="font-semibold text-lg">
+          {{ c.nom }}
+        </h3>
+      </div>
     </div>
   </div>
-</section> -->
+</section>
 
-<!-- PRODUITS RECENTS -->
-<section class="bg-white py-16">
-  <div class="max-w-7xl mx-auto px-6 text-center">
-    <h2 class="text-3xl font-bold mb-8">Produits récents</h2>
-    <div *ngIf="isLoading" class="text-gray-500">Chargement des produits...</div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6" *ngIf="!isLoading">
-      <ng-container *ngFor="let produit of produitsRecents">
-        <app-card-produit [produit]="produit"></app-card-produit>
-      </ng-container>
+<section class="bg-soft py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-12">
+      Nouveaux tissus
+    </h2>
+
+    <div *ngIf="loadingProduits" class="text-center text-gray-500">
+      Chargement des produits...
     </div>
-    <button routerLink="/produits" class="mt-10 px-6 py-3 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition">Voir tous les produits</button>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div
+        *ngFor="let p of produitsRecents"
+        class="bg-white rounded-2xl shadow hover:shadow-2xl transition transform hover:-translate-y-2 animate-fade-in"
+      >
+        <div class="h-52 overflow-hidden rounded-t-2xl">
+          <img
+            [src]="p.images?.[0]?.principale"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <div class="p-4 space-y-2">
+          <h3 class="font-semibold truncate">
+            {{ p.nom }}
+          </h3>
+
+          <p class="text-sm text-gray-500 line-clamp-2">
+            {{ p.description }}
+          </p>
+
+          <div class="flex justify-between items-center pt-2">
+            <span class="font-bold text-primary">
+              {{ p.prix | number }} FCFA
+            </span>
+            <a
+              [routerLink]="['/produits', p.id]"
+              class="text-sm font-semibold text-accent hover:underline"
+            >
+              Voir
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-
-<!-- STATS -->
-<app-section-stats
-  [produits]="nombreProduits"
-  [commandes]="nombreCommandes"
-  [clients]="nombreClients">
-</app-section-stats>
-
-<!-- CTA Newsletter -->
-<section class="bg-rose-50 py-12 text-center">
-  <h2 class="text-2xl font-semibold mb-4">Inscrivez-vous à notre newsletter</h2>
-  <p class="mb-6 text-gray-700">Recevez des offres exclusives et les dernières nouveautés</p>
-  <form class="flex flex-col md:flex-row justify-center items-center gap-4">
-    <input type="email" placeholder="Votre email" class="px-4 py-2 border rounded w-72">
-    <button type="submit" class="bg-rose-500 text-white px-6 py-2 rounded hover:bg-rose-600 transition">S'inscrire</button>
-  </form>
+<section class="bg-primary text-white py-20">
+  <div class="max-w-5xl mx-auto px-6 text-center space-y-6">
+    <h2 class="text-4xl font-bold">
+      Créez sans limite
+    </h2>
+    <p class="text-gray-300">
+      Des tissus authentiques, livrés rapidement partout.
+    </p>
+    <a
+      routerLink="/boutique"
+      class="inline-block bg-secondary text-black px-10 py-3 rounded-full font-semibold hover:bg-amber-400 transition"
+    >
+      Commander maintenant
+    </a>
+  </div>
 </section>
-
-<!-- FOOTER -->
-

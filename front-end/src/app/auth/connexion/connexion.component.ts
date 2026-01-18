@@ -38,9 +38,8 @@ export class ConnexionComponent {
     this.isLoading = true; // Activer l'état de chargement
 
     this.auth.login(this.form.value).subscribe({
-      next: (res: any) => {
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/produits']); // Rediriger après succès
+      next: () => {
+        // La redirection est gérée dans AuthService.login en fonction du rôle
         this.isLoading = false; // Désactiver l'état de chargement
       },
       error: (err: HttpErrorResponse) => {

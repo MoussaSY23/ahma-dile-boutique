@@ -40,6 +40,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfilComponent } from './pages/profil/profil.component';
 import { MesCommandesComponent } from './pages/commande/mes-commandes/mes-commandes.component';
+import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
+import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
+import { AdminCommandesComponent } from './pages/admin/admin-commandes/admin-commandes.component';
+import { AdminUsersComponent } from './pages/admin/admin-users/admin-users.component';
+import { AdminProduitsComponent } from './pages/admin/admin-produits/admin-produits.component';
+import { AdminCategoriesComponent } from './pages/admin/admin-categories/admin-categories.component';
+import { AdminCommandeDetailComponent } from './pages/admin/admin-commande-detail/admin-commande-detail.component';
+import { AdminCategorieDetailComponent } from './pages/admin/admin-categorie-detail/admin-categorie-detail.component';
+import { AdminUserDetailComponent } from './pages/admin/admin-user-detail/admin-user-detail.component';
+import { AdminProfilComponent } from './pages/admin/admin-profil/admin-profil.component';
+import { ClientCategoriesComponent } from './pages/client-categories/client-categories.component';
+
 
 @NgModule({
   declarations: [
@@ -65,6 +77,17 @@ import { MesCommandesComponent } from './pages/commande/mes-commandes/mes-comman
     DetailCategorieComponent,
     ProfilComponent,
     MesCommandesComponent,
+    AdminLayoutComponent,
+    AdminDashboardComponent,
+    AdminCommandesComponent,
+    AdminCommandeDetailComponent,
+    AdminCategorieDetailComponent,
+    AdminUsersComponent,
+    AdminUserDetailComponent,
+    AdminProduitsComponent,
+    AdminCategoriesComponent,
+    AdminProfilComponent,
+    ClientCategoriesComponent,
   ],
   imports: [
     BrowserModule,

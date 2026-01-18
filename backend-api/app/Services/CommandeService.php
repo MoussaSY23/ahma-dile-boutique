@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\DB;
 
 class CommandeService
 {
+    public function getAll()
+    {
+        return Commande::with(['items.produit', 'user', 'livraison', 'paiement'])
+            ->latest()
+            ->get();
+    }
+
     public function getByUser(int $userId)
     {
         return Commande::with(['items.produit', 'livraison', 'paiement'])

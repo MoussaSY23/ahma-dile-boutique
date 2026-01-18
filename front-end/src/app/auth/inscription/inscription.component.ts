@@ -74,11 +74,6 @@ export class InscriptionComponent implements OnInit {
       return;
     }
 
-    if (!this.selectedFile) {
-      this.apiError = 'Veuillez sélectionner une image de profil';
-      return;
-    }
-
     this.isLoading = true;
     this.apiError = null;
 
@@ -88,7 +83,9 @@ export class InscriptionComponent implements OnInit {
     formData.append('password', this.password?.value);
     formData.append('password_confirmation', this.password_confirmation?.value);
     formData.append('role', this.form.value.role);
-    formData.append('image', this.selectedFile);
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
 
     this.authService.register(formData).subscribe({
       next: () => {
